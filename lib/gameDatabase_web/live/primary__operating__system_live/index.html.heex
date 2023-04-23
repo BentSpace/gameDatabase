@@ -1,0 +1,42 @@
+<.header>
+  Listing Primary operating systems
+  <:actions>
+    <.link patch={~p"/primary_operating_systems/new"}>
+      <.button>New Primary  operating  system</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="primary_operating_systems"
+  rows={@streams.primary_operating_systems}
+  row_click={fn {_id, primary__operating__system} -> JS.navigate(~p"/primary_operating_systems/#{primary__operating__system}") end}
+>
+  <:col :let={{_id, primary__operating__system}} label="Name"><%= primary__operating__system.name %></:col>
+  <:col :let={{_id, primary__operating__system}} label="Maker"><%= primary__operating__system.maker %></:col>
+  <:action :let={{_id, primary__operating__system}}>
+    <div class="sr-only">
+      <.link navigate={~p"/primary_operating_systems/#{primary__operating__system}"}>Show</.link>
+    </div>
+    <.link patch={~p"/primary_operating_systems/#{primary__operating__system}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, primary__operating__system}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: primary__operating__system.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="primary__operating__system-modal" show on_cancel={JS.patch(~p"/primary_operating_systems")}>
+  <.live_component
+    module={GameDatabaseWeb.Primary_Operating_SystemLive.FormComponent}
+    id={@primary__operating__system.id || :new}
+    title={@page_title}
+    action={@live_action}
+    primary__operating__system={@primary__operating__system}
+    patch={~p"/primary_operating_systems"}
+  />
+</.modal>

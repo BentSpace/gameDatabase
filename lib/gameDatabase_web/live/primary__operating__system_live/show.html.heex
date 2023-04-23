@@ -1,0 +1,27 @@
+<.header>
+  Primary  operating  system <%= @primary__operating__system.id %>
+  <:subtitle>This is a primary__operating__system record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/primary_operating_systems/#{@primary__operating__system}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit primary__operating__system</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @primary__operating__system.name %></:item>
+  <:item title="Maker"><%= @primary__operating__system.maker %></:item>
+</.list>
+
+<.back navigate={~p"/primary_operating_systems"}>Back to primary_operating_systems</.back>
+
+<.modal :if={@live_action == :edit} id="primary__operating__system-modal" show on_cancel={JS.patch(~p"/primary_operating_systems/#{@primary__operating__system}")}>
+  <.live_component
+    module={GameDatabaseWeb.Primary_Operating_SystemLive.FormComponent}
+    id={@primary__operating__system.id}
+    title={@page_title}
+    action={@live_action}
+    primary__operating__system={@primary__operating__system}
+    patch={~p"/primary_operating_systems/#{@primary__operating__system}"}
+  />
+</.modal>

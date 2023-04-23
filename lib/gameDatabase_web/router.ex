@@ -17,6 +17,27 @@ defmodule GameDatabaseWeb.Router do
   scope "/", GameDatabaseWeb do
     pipe_through :browser
 
+    live "/brands", BrandLive.Index, :index
+    live "/brands/new", BrandLive.Index, :new
+    live "/brands/:id/edit", BrandLive.Index, :edit
+
+    live "/brands/:id", BrandLive.Show, :show
+    live "/brands/:id/show/edit", BrandLive.Show, :edit
+
+    live "/primary_operating_systems", Primary_Operating_SystemLive.Index, :index
+    live "/primary_operating_systems/new", Primary_Operating_SystemLive.Index, :new
+    live "/primary_operating_systems/:id/edit", Primary_Operating_SystemLive.Index, :edit
+
+    live "/primary_operating_systems/:id", Primary_Operating_SystemLive.Show, :show
+    live "/primary_operating_systems/:id/show/edit", Primary_Operating_SystemLive.Show, :edit
+
+    live "/games", GameLive.Index, :index
+    live "/games/new", GameLive.Index, :new
+    live "/games/:id/edit", GameLive.Index, :edit
+
+    live "/games/:id", GameLive.Show, :show
+    live "/games/:id/show/edit", GameLive.Show, :edit
+
     get "/", PageController, :home
   end
 
